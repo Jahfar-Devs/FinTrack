@@ -5,12 +5,13 @@ import { processReminderPushNotifications } from "@/server/scheduler";
 export const dynamic = "force-dynamic";
 
 /**
- * Vercel Cron target — replaces the 60s setInterval loop, which cannot run
- * on serverless (no long-lived process between requests).
+ * Cron target — replaces the 60s setInterval loop, which cannot run on
+ * serverless (no long-lived process between requests).
  *
- * Vercel sends `Authorization: Bearer $CRON_SECRET` when CRON_SECRET is set
- * as an environment variable. Reject anything else so the endpoint is not
- * publicly triggerable.
+ * Driven by an external scheduler (cron-job.org) hitting this URL every
+ * minute, because Vercel Hobby only allows once-daily crons. The caller must
+ * send `Authorization: Bearer $CRON_SECRET` so the endpoint is not publicly
+ * triggerable.
  */
 export async function GET(req: Request) {
   const secret = process.env.CRON_SECRET;

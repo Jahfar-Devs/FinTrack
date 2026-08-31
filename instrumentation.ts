@@ -23,8 +23,8 @@ export async function register() {
 
     // Start the reminder push scheduler only on a persistent server.
     // On Vercel each request runs in a short-lived function, so setInterval
-    // would be killed between invocations — Vercel Cron hits
-    // /api/cron/reminders instead (see vercel.json).
+    // would be killed between invocations — an external scheduler hits
+    // /api/cron/reminders every minute instead.
     if (!process.env.VERCEL) {
       const { startReminderScheduler } = await import("./server/scheduler");
       startReminderScheduler();
