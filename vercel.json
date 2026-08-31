@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "crons": [
+    {
+      "path": "/api/cron/reminders",
+      "schedule": "* * * * *"
+    }
+  ],
+  "functions": {
+    "app/api/cron/reminders/route.ts": {
+      "maxDuration": 60
+    }
+  }
+}
